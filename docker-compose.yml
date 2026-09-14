@@ -1,0 +1,52 @@
+services:
+  database:
+    image: mysql:8.4
+    restart: unless-stopped
+    env_file: deploy.env
+    command: ["--character-set-server=utf8mb4", "--collation-server=utf8mb4_turkish_ci"]
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./database/schema.sql:/docker-entrypoint-initdb.d/01-schema.sql:ro
+    healthcheck:
+      test: ["CMD-SHELL", "mysqladmin ping -h 127.0.0.1 -u root -p$$MYSQL_ROOT_PASSWORD --silent"]
+      interval: 10s
+      timeout: 5s
+      retries: 12
+      start_period: 30s
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    env_file: deploy.env
+    environment:
+      DATABASE_HOST: database
+      DATABASE_PORT: 3306
+      UPLOAD_DIR: /var/lib/auto-tokyo/uploads
+    volumes:
+      - uploads:/var/lib/auto-tokyo/uploads
+    depends_on:
+      database:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "node", "-e", "fetch('http://127.0.0.1:3000/api/health').then(r=>{if(!r.ok)process.exit(1)}).catch(()=>process.exit(1))"]
+      interval: 30s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
+
+  proxy:
+    image: nginx:1.29-alpine
+    restart: unless-stopped
+    ports:
+      - "80:80"
+    volumes:
+      - ./deploy/nginx.conf:/etc/nginx/conf.d/default.conf:ro
+    depends_on:
+      app:
+        condition: service_healthy
+
+volumes:
+  mysql_data:
+  uploads:

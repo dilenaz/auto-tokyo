@@ -1,0 +1,1 @@
+export default function manifest() { return { name: "Auto Tokyo", short_name: "Auto Tokyo", description: "Aksaray araç alım, satım ve takas", start_url: "/", display: "standalone", background_color: "#050505", theme_color: "#ed111f", lang: "tr", icons: [{ src: "/images/logo/auto-tokyo-logo.jpg", sizes: "any", type: "image/jpeg" }] }; }

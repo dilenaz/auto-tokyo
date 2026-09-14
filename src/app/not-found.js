@@ -1,0 +1,2 @@
+import Link from "next/link";
+export default function NotFound() { return <section className="grid min-h-[65vh] place-items-center px-4 text-center"><div><p className="font-display text-8xl font-extrabold text-tokyo-red">404</p><h1 className="mt-3 font-display text-4xl font-bold uppercase">Sayfa Bulunamadı</h1><p className="mt-4 text-sm text-tokyo-silver">Aradığınız sayfa kaldırılmış veya adresi değişmiş olabilir.</p><Link href="/" className="mt-8 inline-block rounded-full bg-tokyo-red px-7 py-4 text-sm font-bold">Ana Sayfaya Dön</Link></div></section>; }

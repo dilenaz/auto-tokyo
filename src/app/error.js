@@ -1,0 +1,2 @@
+"use client";
+export default function Error({ reset }) { return <section className="grid min-h-[60vh] place-items-center px-4 text-center"><div><h1 className="font-display text-5xl font-bold uppercase">Bir Sorun Oluştu</h1><p className="mt-4 text-sm text-tokyo-silver">İçerik şu anda görüntülenemiyor. Lütfen yeniden deneyin.</p><button onClick={reset} className="mt-8 rounded-full bg-tokyo-red px-7 py-4 text-sm font-bold">Yeniden Dene</button></div></section>; }

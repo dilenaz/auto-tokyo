@@ -1,0 +1,9 @@
+node_modules
+.next
+.git
+.env*
+deploy.env
+.mysql-data
+.mysql-run
+.uploads
+npm-debug.log*

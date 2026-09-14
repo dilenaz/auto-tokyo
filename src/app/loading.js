@@ -1,0 +1,1 @@
+export default function Loading() { return <div role="status" className="grid min-h-[55vh] place-items-center"><span className="size-12 animate-spin rounded-full border-2 border-white/10 border-t-tokyo-red" /><span className="sr-only">Sayfa yükleniyor</span></div>; }
